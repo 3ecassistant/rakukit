@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { stripe } from "@/lib/stripe";
+import { getStripe } from "@/lib/stripe";
 
 export const runtime = "nodejs";
 
@@ -41,6 +41,7 @@ export async function POST(req: NextRequest) {
   }
 
   const origin = req.nextUrl.origin;
+  const stripe = getStripe();
 
   const portalSession = await stripe.billingPortal.sessions.create({
     customer: stripeCustomerId,

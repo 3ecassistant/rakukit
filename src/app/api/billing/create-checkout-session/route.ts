@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { stripe } from "@/lib/stripe";
+import { getStripe } from "@/lib/stripe";
 
 export const runtime = "nodejs";
 
@@ -58,6 +58,7 @@ export async function POST(req: NextRequest) {
   }
 
   const admin = createAdminClient();
+  const stripe = getStripe();
 
   // 既存active/trialingサブスクリプションがあれば二重契約させない (■193-194)
   const { data: existingSubscription } = await admin

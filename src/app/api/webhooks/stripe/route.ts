@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
-import { stripe } from "@/lib/stripe";
+import { getStripe } from "@/lib/stripe";
 import { createAdminClient } from "@/lib/supabase/admin";
 import type { BillingInterval, SubscriptionStatus } from "@/lib/billing/types";
 
@@ -97,7 +97,7 @@ async function upsertSubscriptionFromStripe(
 
 // subscriptionIdからStripe側の最新状態を取得して同期する共通処理。
 async function syncSubscriptionById(admin: AdminClient, subscriptionId: string) {
-  const subscription = await stripe.subscriptions.retrieve(subscriptionId);
+  const subscription = await getStripe().subscriptions.retrieve(subscriptionId);
   const workspaceId = subscription.metadata?.workspace_id;
   if (!workspaceId) return;
   await upsertSubscriptionFromStripe(admin, workspaceId, subscription);
@@ -158,7 +158,7 @@ export async function POST(req: NextRequest) {
 
   let event: Stripe.Event;
   try {
-    event = stripe.webhooks.constructEvent(rawBody, signature, webhookSecret);
+    event = getStripe().webhooks.constructEvent(rawBody, signature, webhookSecret);
   } catch (err) {
     const message = err instanceof Error ? err.message : "invalid signature";
     return NextResponse.json({ error: `署名検証に失敗しました: ${message}` }, { status: 400 });
