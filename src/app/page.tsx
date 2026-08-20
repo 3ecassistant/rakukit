@@ -1,5 +1,9 @@
 import Link from "next/link";
-import { CATEGORY_ORDER, TOOLS } from "@/lib/toolsRegistry";
+import { USE_CASE_ORDER, TOOLS } from "@/lib/toolsRegistry";
+
+function useCaseAnchor(useCase: string) {
+  return `usecase-${useCase.replace(/[()・]/g, "")}`;
+}
 
 export default function Home() {
   return (
@@ -18,14 +22,42 @@ export default function Home() {
         </header>
       </div>
 
+      <nav className="mx-auto flex w-full max-w-5xl flex-wrap gap-2 px-4 sm:px-6">
+        {USE_CASE_ORDER.map((useCase) => {
+          const count = TOOLS.filter((tool) =>
+            tool.useCases.includes(useCase)
+          ).length;
+          if (count === 0) return null;
+          return (
+            <a
+              key={useCase}
+              href={`#${useCaseAnchor(useCase)}`}
+              className="flex items-center gap-1.5 rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-xs font-bold text-zinc-700 transition-colors hover:border-red-400 hover:text-red-700"
+            >
+              {useCase}
+              <span className="text-[10px] font-semibold text-zinc-400">
+                {count}
+              </span>
+            </a>
+          );
+        })}
+      </nav>
+
       <div className="mx-auto flex w-full max-w-5xl flex-col gap-10 px-4 sm:px-6">
-        {CATEGORY_ORDER.map((category) => {
-          const tools = TOOLS.filter((tool) => tool.category === category);
+        {USE_CASE_ORDER.map((useCase) => {
+          const tools = TOOLS.filter((tool) => tool.useCases.includes(useCase));
           if (tools.length === 0) return null;
           return (
-            <section key={category} className="flex flex-col gap-3">
+            <section
+              key={useCase}
+              id={useCaseAnchor(useCase)}
+              className="flex scroll-mt-20 flex-col gap-3"
+            >
               <h2 className="flex items-center gap-2 border-l-4 border-red-600 pl-3 text-sm font-bold text-zinc-800">
-                {category}
+                {useCase}
+                <span className="text-xs font-semibold text-zinc-400">
+                  {tools.length}
+                </span>
               </h2>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {tools.map((tool) => (
@@ -36,6 +68,21 @@ export default function Home() {
                   >
                     <p className="font-bold text-zinc-900">{tool.title}</p>
                     <p className="flex-1 text-sm text-zinc-500">{tool.description}</p>
+                    <div className="flex flex-wrap gap-1.5">
+                      <span className="rounded-full bg-zinc-100 px-2 py-0.5 text-[11px] font-semibold text-zinc-600">
+                        {tool.category}
+                      </span>
+                      {tool.useCases
+                        .filter((uc) => uc !== useCase)
+                        .map((uc) => (
+                          <span
+                            key={uc}
+                            className="rounded-full bg-zinc-100 px-2 py-0.5 text-[11px] font-semibold text-zinc-600"
+                          >
+                            {uc}
+                          </span>
+                        ))}
+                    </div>
                     <span className="self-start rounded-full bg-red-600 px-3 py-1 text-xs font-bold text-white">
                       使う ＞
                     </span>

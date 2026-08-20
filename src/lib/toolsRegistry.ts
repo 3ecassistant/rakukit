@@ -1,10 +1,37 @@
+export type UseCase =
+  | "出品準備"
+  | "SEO対策"
+  | "商品ページ改善"
+  | "価格・利益設計"
+  | "広告(RPP)運用"
+  | "販促・クーポン設計"
+  | "売上・KPI計画"
+  | "在庫管理"
+  | "レビュー対策"
+  | "競合・市場調査";
+
 export interface ToolMeta {
   slug: string;
   title: string;
   description: string;
   category: "画像" | "商品テキスト" | "HTML" | "CSV" | "リサーチ";
   status: "available" | "coming-soon";
+  /** このツールをどんな業務タイミングで使うか（複数可） */
+  useCases: UseCase[];
 }
+
+export const USE_CASE_ORDER: UseCase[] = [
+  "出品準備",
+  "SEO対策",
+  "商品ページ改善",
+  "競合・市場調査",
+  "価格・利益設計",
+  "販促・クーポン設計",
+  "広告(RPP)運用",
+  "売上・KPI計画",
+  "在庫管理",
+  "レビュー対策",
+];
 
 export const TOOLS: ToolMeta[] = [
   {
@@ -13,6 +40,7 @@ export const TOOLS: ToolMeta[] = [
     description: "商品画像のリサイズ・圧縮・形式変換をブラウザだけで一括処理。",
     category: "画像",
     status: "available",
+    useCases: ["出品準備"],
   },
   {
     slug: "product-name",
@@ -20,6 +48,7 @@ export const TOOLS: ToolMeta[] = [
     description: "商品名の文字数・バイト数・使用文字・機種依存文字を瞬時にチェック。",
     category: "商品テキスト",
     status: "available",
+    useCases: ["出品準備", "SEO対策"],
   },
   {
     slug: "zenkaku-hankaku",
@@ -27,6 +56,7 @@ export const TOOLS: ToolMeta[] = [
     description: "文字種別の件数を確認し、ワンクリックで全角⇔半角変換。",
     category: "商品テキスト",
     status: "available",
+    useCases: ["出品準備"],
   },
   {
     slug: "forbidden-chars",
@@ -34,6 +64,7 @@ export const TOOLS: ToolMeta[] = [
     description: "文字化け・登録エラーの原因になる文字を事前検出し、代替候補を提示。",
     category: "商品テキスト",
     status: "available",
+    useCases: ["出品準備"],
   },
   {
     slug: "html-format",
@@ -41,6 +72,7 @@ export const TOOLS: ToolMeta[] = [
     description: "読みにくいHTMLをインデント付きで自動整形。",
     category: "HTML",
     status: "available",
+    useCases: ["出品準備"],
   },
   {
     slug: "html-strip",
@@ -48,6 +80,7 @@ export const TOOLS: ToolMeta[] = [
     description: "HTMLからタグを取り除き、文字情報だけを抽出。",
     category: "HTML",
     status: "available",
+    useCases: ["出品準備"],
   },
   {
     slug: "csv-encoding",
@@ -55,6 +88,7 @@ export const TOOLS: ToolMeta[] = [
     description: "Shift_JIS・UTF-8などの文字コードを自動判定し、指定の形式へ変換。",
     category: "CSV",
     status: "available",
+    useCases: ["出品準備"],
   },
   {
     slug: "csv-extract",
@@ -62,6 +96,7 @@ export const TOOLS: ToolMeta[] = [
     description: "必要な列だけを選んで、並び順を指定した新しいCSVを生成。",
     category: "CSV",
     status: "available",
+    useCases: ["出品準備"],
   },
   {
     slug: "csv-dedupe",
@@ -69,6 +104,7 @@ export const TOOLS: ToolMeta[] = [
     description: "指定した列の値をもとに重複行を検出し、削除・抽出。",
     category: "CSV",
     status: "available",
+    useCases: ["出品準備"],
   },
   {
     slug: "csv-replace",
@@ -76,6 +112,7 @@ export const TOOLS: ToolMeta[] = [
     description: "指定した列の文字列をまとめて検索・置換。",
     category: "CSV",
     status: "available",
+    useCases: ["出品準備"],
   },
   {
     slug: "csv-excel",
@@ -83,6 +120,7 @@ export const TOOLS: ToolMeta[] = [
     description: "先頭行固定・オートフィルター付きのExcelファイルへ変換。",
     category: "CSV",
     status: "available",
+    useCases: ["出品準備"],
   },
   {
     slug: "csv-bulk-edit",
@@ -90,6 +128,7 @@ export const TOOLS: ToolMeta[] = [
     description: "対象列・条件を指定して商品CSVを一括置換・追加・削除。変更前後を必ず確認してから出力。",
     category: "CSV",
     status: "available",
+    useCases: ["出品準備"],
   },
   {
     slug: "suggest",
@@ -97,6 +136,7 @@ export const TOOLS: ToolMeta[] = [
     description: "起点キーワードから楽天市場の関連サジェストを階層的にまとめて収集。",
     category: "リサーチ",
     status: "available",
+    useCases: ["SEO対策"],
   },
   {
     slug: "suggest-trend",
@@ -104,6 +144,7 @@ export const TOOLS: ToolMeta[] = [
     description: "サジェスト取得結果を保存し、前回との差分（NEW/OUT/KEEP）を継続的に確認。",
     category: "リサーチ",
     status: "available",
+    useCases: ["SEO対策"],
   },
   {
     slug: "product-seo-check",
@@ -111,6 +152,7 @@ export const TOOLS: ToolMeta[] = [
     description: "商品名と楽天サジェストを照合し、使用済み・未使用・NEWキーワードとカバー率を可視化。",
     category: "リサーチ",
     status: "available",
+    useCases: ["SEO対策", "商品ページ改善"],
   },
   {
     slug: "rpp-analysis",
@@ -118,6 +160,7 @@ export const TOOLS: ToolMeta[] = [
     description: "RPPレポートCSVから商品別ROAS・CVR・CPCを自動算出し、対応すべき商品を優先表示。",
     category: "リサーチ",
     status: "available",
+    useCases: ["広告(RPP)運用"],
   },
   {
     slug: "profit-simulator",
@@ -125,6 +168,7 @@ export const TOOLS: ToolMeta[] = [
     description: "販売価格・原価・送料・ポイント・クーポン・広告費から1注文あたり利益と値引き余力を即計算。",
     category: "リサーチ",
     status: "available",
+    useCases: ["価格・利益設計"],
   },
   {
     slug: "bulk-seo-check",
@@ -132,6 +176,7 @@ export const TOOLS: ToolMeta[] = [
     description: "商品CSVとサジェストデータを照合し、商品名を見直すべき優先順位を一括で抽出。",
     category: "リサーチ",
     status: "available",
+    useCases: ["SEO対策", "商品ページ改善"],
   },
   {
     slug: "promotion-comparator",
@@ -139,6 +184,7 @@ export const TOOLS: ToolMeta[] = [
     description: "金額OFF・%OFF・ポイント還元を同条件で並べて比較し、利益への影響を一目で確認。",
     category: "リサーチ",
     status: "available",
+    useCases: ["価格・利益設計", "販促・クーポン設計"],
   },
   {
     slug: "discount-volume",
@@ -146,6 +192,7 @@ export const TOOLS: ToolMeta[] = [
     description: "現在価格・値下げ後価格・販売数・原価から、利益を維持するために必要な販売数増加率を即算出。",
     category: "リサーチ",
     status: "available",
+    useCases: ["価格・利益設計"],
   },
   {
     slug: "price-increase",
@@ -153,6 +200,7 @@ export const TOOLS: ToolMeta[] = [
     description: "現在価格・値上げ後価格・販売数・原価から、利益を維持できる販売数の許容減少率を即算出。",
     category: "リサーチ",
     status: "available",
+    useCases: ["価格・利益設計"],
   },
   {
     slug: "coupon-minimum-spend",
@@ -160,6 +208,7 @@ export const TOOLS: ToolMeta[] = [
     description: "クーポン額・原価率・送料・販売関連費率・最低利益率から、採算が取れる最低購入金額を逆算。",
     category: "リサーチ",
     status: "available",
+    useCases: ["価格・利益設計", "販促・クーポン設計"],
   },
   {
     slug: "max-point-rate",
@@ -167,6 +216,7 @@ export const TOOLS: ToolMeta[] = [
     description: "販売価格・原価・送料・現在ポイント負担率から、利益率を維持できる最大ポイント負担率を即算出。",
     category: "リサーチ",
     status: "available",
+    useCases: ["価格・利益設計"],
   },
   {
     slug: "bulk-purchase-coupon",
@@ -174,6 +224,7 @@ export const TOOLS: ToolMeta[] = [
     description: "商品単価・原価・購入点数・クーポン額から、まとめ買い施策で本当に利益が増えるかを3シナリオで比較。",
     category: "リサーチ",
     status: "available",
+    useCases: ["価格・利益設計", "販促・クーポン設計"],
   },
   {
     slug: "free-shipping-volume",
@@ -181,6 +232,7 @@ export const TOOLS: ToolMeta[] = [
     description: "商品価格・原価・実配送コスト・現在顧客送料から、送料無料化後に利益を維持できる必要販売増加率を即算出。",
     category: "リサーチ",
     status: "available",
+    useCases: ["価格・利益設計"],
   },
   {
     slug: "rpp-required-cvr",
@@ -188,6 +240,7 @@ export const TOOLS: ToolMeta[] = [
     description: "販売価格・CPC・原価・送料・最低利益率から、そのCPCを成立させるために必要な商品ページCVRを即算出。",
     category: "リサーチ",
     status: "available",
+    useCases: ["広告(RPP)運用", "商品ページ改善"],
   },
   {
     slug: "cpc-limit-matrix",
@@ -195,6 +248,7 @@ export const TOOLS: ToolMeta[] = [
     description: "販売価格・原価・送料・最低利益率から、CVRごとに許容できる最大CPCを一覧表示。",
     category: "リサーチ",
     status: "available",
+    useCases: ["広告(RPP)運用"],
   },
   {
     slug: "rpp-click-runway",
@@ -202,6 +256,7 @@ export const TOOLS: ToolMeta[] = [
     description: "現在の広告費・クリック数・注文数から、利益維持ライン／損益分岐ラインまでの残りクリック数を即算出。",
     category: "リサーチ",
     status: "available",
+    useCases: ["広告(RPP)運用"],
   },
   {
     slug: "ad-budget-scaling",
@@ -209,6 +264,7 @@ export const TOOLS: ToolMeta[] = [
     description: "現在の広告費・売上・原価率・最低利益率から、増額後の広告予算を成立させる必要売上・必要ROASを逆算。",
     category: "リサーチ",
     status: "available",
+    useCases: ["広告(RPP)運用", "売上・KPI計画"],
   },
   {
     slug: "sales-target-reverse",
@@ -216,6 +272,7 @@ export const TOOLS: ToolMeta[] = [
     description: "売上目標・平均注文単価・想定CVRから、必要注文数・必要アクセス数・日割り目標を即算出。",
     category: "リサーチ",
     status: "available",
+    useCases: ["売上・KPI計画"],
   },
   {
     slug: "sale-target",
@@ -223,6 +280,7 @@ export const TOOLS: ToolMeta[] = [
     description: "通常価格・SALE価格・目標売上・SALE期間から、目標達成に必要な販売数と日販を即算出。",
     category: "リサーチ",
     status: "available",
+    useCases: ["売上・KPI計画", "販促・クーポン設計"],
   },
   {
     slug: "coupon-budget",
@@ -230,6 +288,7 @@ export const TOOLS: ToolMeta[] = [
     description: "クーポン額・想定利用数・平均注文単価・原価率から、施策全体の原資・必要売上・利益を算出。",
     category: "リサーチ",
     status: "available",
+    useCases: ["販促・クーポン設計"],
   },
   {
     slug: "inventory-clearance",
@@ -237,6 +296,7 @@ export const TOOLS: ToolMeta[] = [
     description: "現在在庫数・消化目標日数・現在販売ペースから、期限内消化に必要な日販と現在ペースとの差を即算出。",
     category: "リサーチ",
     status: "available",
+    useCases: ["在庫管理"],
   },
   {
     slug: "inventory-markdown-limit",
@@ -244,6 +304,7 @@ export const TOOLS: ToolMeta[] = [
     description: "在庫数・現在価格・許容できる利益減少額から、利益条件を満たせる最低販売価格と最大値下げ率を逆算。",
     category: "リサーチ",
     status: "available",
+    useCases: ["在庫管理", "価格・利益設計"],
   },
   {
     slug: "bulk-purchase-rate",
@@ -251,6 +312,7 @@ export const TOOLS: ToolMeta[] = [
     description: "1個購入とまとめ買い時の注文金額・目標客単価から、目標達成に必要なまとめ買い注文の比率を逆算。",
     category: "リサーチ",
     status: "available",
+    useCases: ["売上・KPI計画", "販促・クーポン設計"],
   },
   {
     slug: "free-shipping-threshold-aov",
@@ -258,6 +320,7 @@ export const TOOLS: ToolMeta[] = [
     description: "現在客単価と送料無料ラインから、ライン到達に必要な客単価の差額・上昇率を即算出。",
     category: "リサーチ",
     status: "available",
+    useCases: ["売上・KPI計画", "販促・クーポン設計"],
   },
   {
     slug: "new-customer-target",
@@ -265,6 +328,7 @@ export const TOOLS: ToolMeta[] = [
     description: "売上目標・新規以外の売上・新規顧客AOVから、目標達成に必要な新規顧客数を逆算。",
     category: "リサーチ",
     status: "available",
+    useCases: ["売上・KPI計画"],
   },
   {
     slug: "review-rating-target",
@@ -272,6 +336,7 @@ export const TOOLS: ToolMeta[] = [
     description: "現在レビュー件数・平均評価・目標評価から、目標達成に必要な★5レビュー件数を逆算。",
     category: "リサーチ",
     status: "available",
+    useCases: ["レビュー対策"],
   },
   {
     slug: "low-rating-impact",
@@ -279,6 +344,7 @@ export const TOOLS: ToolMeta[] = [
     description: "現在レビュー件数・平均評価に低評価が追加された場合の新平均と、元評価への回復に必要な★5件数を算出。",
     category: "リサーチ",
     status: "available",
+    useCases: ["レビュー対策"],
   },
   {
     slug: "repeat-rate-target",
@@ -286,6 +352,7 @@ export const TOOLS: ToolMeta[] = [
     description: "総顧客数・現在リピーター数・目標リピート率から、目標達成に必要なリピーター人数を逆算。",
     category: "リサーチ",
     status: "available",
+    useCases: ["売上・KPI計画"],
   },
   {
     slug: "repeat-sales-target",
@@ -293,6 +360,7 @@ export const TOOLS: ToolMeta[] = [
     description: "リピート売上目標・現在リピート売上・平均再購入単価から、目標達成に必要な再購入件数を逆算。",
     category: "リサーチ",
     status: "available",
+    useCases: ["売上・KPI計画"],
   },
   {
     slug: "profit-target",
@@ -300,6 +368,7 @@ export const TOOLS: ToolMeta[] = [
     description: "利益目標・利益率または1個利益から、目標達成に必要な売上額または販売数を逆算。",
     category: "リサーチ",
     status: "available",
+    useCases: ["売上・KPI計画", "価格・利益設計"],
   },
   {
     slug: "fixed-cost-break-even",
@@ -307,6 +376,7 @@ export const TOOLS: ToolMeta[] = [
     description: "固定費と1個あたり限界利益から、固定費回収に必要な最低販売数（損益分岐販売数）を逆算。",
     category: "リサーチ",
     status: "available",
+    useCases: ["売上・KPI計画"],
   },
   {
     slug: "competitor-analysis",
@@ -314,6 +384,7 @@ export const TOOLS: ToolMeta[] = [
     description: "検索キーワードから競合商品の公開情報を一括取得し、価格・レビュー・送料・ポイント・ショップ集中度を数値化。",
     category: "リサーチ",
     status: "available",
+    useCases: ["競合・市場調査"],
   },
   {
     slug: "price-position-analysis",
@@ -321,6 +392,7 @@ export const TOOLS: ToolMeta[] = [
     description: "競合商品価格を取得し、市場価格中央値・価格帯構成・レビュー帯別価格から自社価格の市場内ポジションを診断。",
     category: "リサーチ",
     status: "available",
+    useCases: ["競合・市場調査", "価格・利益設計"],
   },
   {
     slug: "review-barrier-analysis",
@@ -328,6 +400,7 @@ export const TOOLS: ToolMeta[] = [
     description: "競合商品のレビュー件数・評価を取得し、市場全体・API標準順上位30商品のレビュー資産からレビュー参入障壁を100点満点で診断。",
     category: "リサーチ",
     status: "available",
+    useCases: ["競合・市場調査", "レビュー対策"],
   },
   {
     slug: "promotion-competition-analysis",
@@ -335,6 +408,7 @@ export const TOOLS: ToolMeta[] = [
     description: "競合商品の送料条件・商品別ポイント倍率を取得し、市場でどの程度送料無料・ポイントアップが一般化しているかを診断。",
     category: "リサーチ",
     status: "available",
+    useCases: ["競合・市場調査", "販促・クーポン設計"],
   },
   {
     slug: "keyword-competition-checker",
@@ -342,6 +416,7 @@ export const TOOLS: ToolMeta[] = [
     description: "複数キーワード候補の検索商品数・レビュー・価格・ショップ集中度を比較し、競合度と競合余地スコアを一括算出。",
     category: "リサーチ",
     status: "available",
+    useCases: ["SEO対策", "競合・市場調査"],
   },
   {
     slug: "shop-composition-analysis",
@@ -349,6 +424,7 @@ export const TOOLS: ToolMeta[] = [
     description: "競合ショップのshopCodeから掲載商品群を取得し、価格帯・ジャンル構成・レビュー資産・主力候補商品を分析。",
     category: "リサーチ",
     status: "available",
+    useCases: ["競合・市場調査"],
   },
   {
     slug: "title-seo-analysis",
@@ -356,6 +432,7 @@ export const TOOLS: ToolMeta[] = [
     description: "競合商品の商品名・キャッチコピーを分析し、商品使用率の高いキーワードとカテゴリ構成、自社タイトルの不足キーワードを抽出。",
     category: "リサーチ",
     status: "available",
+    useCases: ["SEO対策", "商品ページ改善", "競合・市場調査"],
   },
   {
     slug: "attribute-competition-analysis",
@@ -363,6 +440,7 @@ export const TOOLS: ToolMeta[] = [
     description: "指定ジャンルの商品属性ごとに商品数・価格・レビュー・ショップ数を比較し、同一ジャンル内の競争環境の違いを発見。",
     category: "リサーチ",
     status: "available",
+    useCases: ["競合・市場調査"],
   },
   {
     slug: "market-gap-finder",
@@ -370,6 +448,7 @@ export const TOOLS: ToolMeta[] = [
     description: "ジャンル内商品を属性×価格帯×属性の組み合わせへ分解し、競争条件が比較的手薄な市場セルを競争余地スコアで抽出。",
     category: "リサーチ",
     status: "available",
+    useCases: ["競合・市場調査"],
   },
   {
     slug: "shop-diff-checker",
@@ -377,6 +456,7 @@ export const TOOLS: ToolMeta[] = [
     description: "複数店舗で販売する同一商品の価格・販売可否・送料・商品名・ジャンル・ポイント倍率の設定差異を一括検出。",
     category: "リサーチ",
     status: "available",
+    useCases: ["競合・市場調査", "出品準備"],
   },
   {
     slug: "price-watch",
@@ -384,6 +464,7 @@ export const TOOLS: ToolMeta[] = [
     description: "登録商品の現在価格・SALE設定・ポイント倍率・送料・販売可否を取得し、前回チェック時からの変化をオンデマンドで検出。",
     category: "リサーチ",
     status: "available",
+    useCases: ["競合・市場調査", "価格・利益設計"],
   },
   {
     slug: "change-detection",
@@ -391,6 +472,7 @@ export const TOOLS: ToolMeta[] = [
     description: "競合ショップの商品集合を取得し、前回チェック時からの新規検出商品・確認不可商品・価格や商品名等の変更をオンデマンドで検出。",
     category: "リサーチ",
     status: "available",
+    useCases: ["競合・市場調査"],
   },
   {
     slug: "price-research",
@@ -398,6 +480,7 @@ export const TOOLS: ToolMeta[] = [
     description: "競合価格を取得し市場価格分布・自社価格ポジションを分析。価格履歴はサーバーに保存せず、この端末のブラウザ内（IndexedDB）にのみ保存。",
     category: "リサーチ",
     status: "available",
+    useCases: ["競合・市場調査", "価格・利益設計"],
   },
 ];
 
